@@ -2,3 +2,5 @@
 Shopping list project
 
 commit
+
+git commit
