@@ -1,4 +1,4 @@
 # shoppingList
 Shopping list project
 
-![alt text](Screen/P1.png ​)
+![Image alt](https://github.com/VitaliiKashcheev/shoppingList.git/raw/master/Screen/P1.png)
