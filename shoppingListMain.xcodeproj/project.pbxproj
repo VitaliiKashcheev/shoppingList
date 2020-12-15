@@ -19,6 +19,7 @@
 		BA33B90E24C06F94009D681C /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA33B90D24C06F94009D681C /* HomeController.swift */; };
 		BA33B91424C06F94009D681C /* shoppingListMain.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA33B91224C06F94009D681C /* shoppingListMain.xcdatamodeld */; };
 		BA33B91624C06F95009D681C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA33B91524C06F95009D681C /* Assets.xcassets */; };
+		BA340827258761DE005966FC /* HomeControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA340826258761DE005966FC /* HomeControllerHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		BA33B91324C06F94009D681C /* shoppingListMain.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = shoppingListMain.xcdatamodel; sourceTree = "<group>"; };
 		BA33B91524C06F95009D681C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA33B91A24C06F95009D681C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA340826258761DE005966FC /* HomeControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControllerHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				BA0923C024F388FC0007D839 /* TabBarView.swift */,
 				BA33B90D24C06F94009D681C /* HomeController.swift */,
 				BA0923B824E52BFB0007D839 /* ProfileController.swift */,
+				BA340826258761DE005966FC /* HomeControllerHelper.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				BA0923B124DAF2CC0007D839 /* UIView+Anchors.swift in Sources */,
 				BA0923AD24DAF1BF0007D839 /* SwipeableCollectionViewCell.swift in Sources */,
 				BA09238624D590A80007D839 /* MenuBar.swift in Sources */,
+				BA340827258761DE005966FC /* HomeControllerHelper.swift in Sources */,
 				BA33B90C24C06F94009D681C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

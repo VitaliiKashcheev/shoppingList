@@ -7,12 +7,13 @@
 //
 import Foundation
 import UIKit
+import CoreData
 
 class HomeController: UIViewController, CustomTabBarControllerDelegate {
     
     fileprivate let cellId = "id"
     
-    var events = [String]()
+    var events: [Message]?
         
     //Add menu Bar
     
@@ -62,6 +63,8 @@ class HomeController: UIViewController, CustomTabBarControllerDelegate {
         collectionView.pinEdgesToSuperView()
         
         view.addSubview(menuBar)
+        
+        setupData()
 //        UIApplication.shared.keyWindow!.addSubview(addButton)
 //        UIApplication.shared.keyWindow!.bringSubviewToFront(addButton)
     }
@@ -73,7 +76,11 @@ extension HomeController: UICollectionViewDataSource, UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
             as! ItemCollectionViewCell
-//        cell.nameLabel.text = 
+        
+        if let message = events?[indexPath.item] {
+            cell.message = message
+        }
+        
         cell.delegate = self
         cell.layoutSubviews()
         
@@ -87,7 +94,10 @@ extension HomeController: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return events.count
+        if let count = events?.count{
+            return count
+        }
+        return 0
     }
     
     func addButtonAction() {
@@ -97,35 +107,24 @@ extension HomeController: UICollectionViewDataSource, UICollectionViewDelegateFl
         
         let action = UIAlertAction(title: "Add", style: .default) { (_) in guard let event = alert.textFields?.first?.text else{return}
             print(event)
-            self.events.append(event)
+//            self.events?.insert(Message, at:0)
+//            self.setupData()
             self.collectionView.reloadData()
             
         }
         alert.addAction(action)
         present(alert, animated: true)
+//        ItemCollectionViewCell.nameLabel
     
     }
     
-    func customTabBarControllerDelegate_CenterButtonTapped(tabBarController: TabBarController, button: UIButton, buttonState: Bool)
-    {
+    func customTabBarControllerDelegate_CenterButtonTapped(tabBarController: TabBarController, button: UIButton, buttonState: Bool) {
+        
         //        tabBarController.tabBar.isHidden = true
         //        tabBarController.centerButton.isHidden = true
         self.tabBarController?.selectedIndex = 0
         
         addButtonAction()
-        
-//        let alert = UIAlertController(title: "Add List", message: nil, preferredStyle: .alert)
-//        alert.addTextField { (dessertTF) in dessertTF.placeholder = "Enter"
-//        }
-//        let action = UIAlertAction(title: "Add", style: .default) { (_) in guard let event = alert.textFields?.first?.text else{return}
-//            print(event)
-////            self.collectionView.cell
-//            self.events.append(event)
-//            self.collectionView.reloadData()
-//
-//        }
-//        alert.addAction(action)
-//        present(alert, animated: true)
         
     }
     
@@ -147,7 +146,7 @@ extension HomeController: UICollectionViewDataSource, UICollectionViewDelegateFl
 extension HomeController: SwipeableCollectionViewCellDelegate {
     func hiddenContainerViewTapped(inCell cell: UICollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        events.remove(at: indexPath.item)
+        events?.remove(at: indexPath.item)
         collectionView.performBatchUpdates({
             self.collectionView.deleteItems(at: [indexPath])
         })
@@ -161,7 +160,7 @@ extension HomeController: SwipeableCollectionViewCellDelegate {
     
     func secondContainerViewTapped(inCell cell: UICollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        events.remove(at: indexPath.item)
+        events?.remove(at: indexPath.item)
         collectionView.performBatchUpdates({
             self.collectionView.deleteItems(at: [indexPath])
         })

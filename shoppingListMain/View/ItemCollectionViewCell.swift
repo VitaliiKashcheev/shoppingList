@@ -7,8 +7,33 @@
 //
 
 import UIKit
+import CoreData
 
 class ItemCollectionViewCell: SwipeableCollectionViewCell {
+    
+    
+    var message: Message? {
+        didSet{
+            categoryLable.text = message?.friend?.name
+            
+            if let profileImageName = message?.friend?.profileImageName{
+            categoryImage.image = UIImage(named: profileImageName)
+            }
+            
+            if let backgroundImageName = message?.friend?.backgroundImageName{
+                categoryBackgroundImage.image = UIImage(named: backgroundImageName)
+            }
+            
+            nameLabel.text = message?.text
+            
+            if let date = message?.date{
+                let formatter = DateFormatter()
+                formatter.dateFormat = "d MMM yyyy"
+                
+                dateLable.text = formatter.string(for: date)
+            }
+        }
+    }
     
     // Properties
 
@@ -41,6 +66,7 @@ class ItemCollectionViewCell: SwipeableCollectionViewCell {
         label.textAlignment = .left
         return label
     }()
+ 
     
     let priceLabel: UILabel = {
         let label = UILabel()
