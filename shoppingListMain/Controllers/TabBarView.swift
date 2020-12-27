@@ -55,7 +55,6 @@ class TabBarView: UIView {
         path.addCurve(to: CGPoint(x: self.frame.width, y: -25),
                       controlPoint1: CGPoint(x: self.frame.width - 25, y: 0), controlPoint2: CGPoint(x: self.frame.width, y: 0))
         
-        
         path.addLine(to: CGPoint(x: self.frame.width, y: self.frame.height))
         path.addLine(to: CGPoint(x: 0, y: self.frame.height))
         path.close()

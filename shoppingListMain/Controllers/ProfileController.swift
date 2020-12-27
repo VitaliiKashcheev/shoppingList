@@ -10,6 +10,11 @@ import UIKit
 
 class ProfileController: UIViewController {
     
+    let menuBar: MenuBar = {
+        let mb = MenuBar()
+        return(mb)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

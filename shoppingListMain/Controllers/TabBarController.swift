@@ -37,7 +37,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         self.delegate = self
         
-        let resentMassageNavController = UINavigationController(rootViewController: HomeController())
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let resentMassageNavController = UINavigationController(rootViewController: HomeController(collectionViewLayout: layout))
         resentMassageNavController.tabBarItem.tag = 1
         resentMassageNavController.tabBarItem.image = UIImage(named: "list")
         

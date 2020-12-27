@@ -10,9 +10,9 @@ import UIKit
 import CoreData
 
 class ItemCollectionViewCell: SwipeableCollectionViewCell {
+   
     
-    
-    var message: Message? {
+    var message: EventsProductList? {
         didSet{
             categoryLable.text = message?.friend?.name
             
@@ -73,7 +73,7 @@ class ItemCollectionViewCell: SwipeableCollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 14)
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = UIColor(red: 0.20, green: 0.20, blue: 0.20, alpha: 1.00)
-        label.text = "1000 UAH"
+        label.text = "0 UAH"
         label.textAlignment = .right
         return label
     }()

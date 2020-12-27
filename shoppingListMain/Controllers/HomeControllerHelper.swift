@@ -19,7 +19,7 @@ extension HomeController {
         if let context = delegate?.persistentContainer.viewContext {
             
             do{
-                let fetchRequestFriends: NSFetchRequest<Friend> = Friend.fetchRequest()
+                let fetchRequestFriends: NSFetchRequest<Events> = Events.fetchRequest()
                 
                 let fetchFriend = try context.fetch(fetchRequestFriends)
                 
@@ -27,7 +27,7 @@ extension HomeController {
                     context.delete(friend)
                 }
                 
-                let fetchRequest: NSFetchRequest<Message> = Message.fetchRequest()
+                let fetchRequest: NSFetchRequest<EventsProductList> = EventsProductList.fetchRequest()
                 
                 let fetchedMassage = try context.fetch(fetchRequest)
                 
@@ -44,44 +44,54 @@ extension HomeController {
         
     }
     
-    func setupData() {
+    func setupData(text: String) {
         
-        clearData()
+//        clearData()
         
         let delegate = UIApplication.shared.delegate as? AppDelegate
         
         if let context = delegate?.persistentContainer.viewContext {
             
-            let mark = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
-            mark.name = "First category"
+            
+            let mark = NSEntityDescription.insertNewObject(forEntityName: "Events", into: context) as! Events
+            mark.name = text
             mark.profileImageName = "pharmacy"
             mark.backgroundImageName = "bg-2"
-            
-            let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
+
+            let message = NSEntityDescription.insertNewObject(forEntityName: "EventsProductList", into: context) as! EventsProductList
             message.friend = mark
             message.text = "First supermarket"
             message.date = NSDate() as Date
-            
-            let steve = NSEntityDescription.insertNewObject(forEntityName: "Friend", into: context) as! Friend
-            steve.name = "Second category"
-            steve.profileImageName = "technique"
-            steve.backgroundImageName = "bg-1"
-            
-            let messageSteve = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as! Message
-            messageSteve.friend = steve
-            messageSteve.text = "Second supermarket"
-            messageSteve.date = NSDate() as Date
-            
+//
+//
+//            let steve = NSEntityDescription.insertNewObject(forEntityName: "Events", into: context) as! Events
+//            steve.name = "Second category"
+//            steve.profileImageName = "technique"
+//            steve.backgroundImageName = "bg-1"
+//
+//            createMassageWithText(text: "Hello", friend: steve , context: context)
+//            createMassageWithText(text: "i'm", friend: steve , context: context)
+//            createMassageWithText(text: "Ok", friend: steve , context: context)
+
+ 
             do{
                 try(context.save())
             }catch let err{
                 print(err)
             }
             
-//            events = [message,messageSteve]
         }
 
         loadData()
+    }
+    
+    private func createMassageWithText(text: String, friend: Events, context: NSManagedObjectContext){
+        
+        let message = NSEntityDescription.insertNewObject(forEntityName: "EventsProductList", into: context) as! EventsProductList
+        message.friend = friend
+        message.text = text
+        message.date = NSDate() as Date
+        
     }
     
     func loadData(){
@@ -90,13 +100,52 @@ extension HomeController {
         
         if let context = delegate?.persistentContainer.viewContext {
             
-            let fetchReqest = NSFetchRequest<NSFetchRequestResult>(entityName: "Message")
+            
+            events = [EventsProductList]()
+            
+            if let friends = fetchFriends(){
+            for friend in friends {
+                print(friend.name as Any)
+                
+                let fetchReqest = NSFetchRequest<NSFetchRequestResult>(entityName: "EventsProductList")
+                fetchReqest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+                fetchReqest.predicate = NSPredicate(format: "friend.name = %@", friend.name!)
+                fetchReqest.fetchLimit = 1
+                
+                
+                do{
+                    let fetchMessages = try context.fetch(fetchReqest) as? [EventsProductList]
+                    
+                    events?.append(contentsOf: fetchMessages!)
+                    
+                }catch let err{
+                    print(err)
+                }
+            }
+                
+                events = events?.sorted(by: {($0.date)?.compare($1.date! as Date) == .orderedDescending})
+        }
+            
+            
+    }
+}
+    
+    private func fetchFriends() -> [Events]? {
+        
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        
+        if let context = delegate?.persistentContainer.viewContext {
+            
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Events")
             
             do{
-                try events = context.fetch(fetchReqest) as? [Message]
+                
+               return try context.fetch(request) as? [Events]
+                
             }catch let err{
                 print(err)
             }
         }
+         return nil
     }
 }

@@ -9,32 +9,18 @@ import Foundation
 import UIKit
 import CoreData
 
-class HomeController: UIViewController, CustomTabBarControllerDelegate {
+class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout, CustomTabBarControllerDelegate {
     
     fileprivate let cellId = "id"
+
+    var events: [EventsProductList]?
     
-    var events: [Message]?
-        
     //Add menu Bar
     
     let menuBar: MenuBar = {
         let mb = MenuBar()
         return(mb)
     }()
-
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.contentInset = UIEdgeInsets(top: 66, left: 0, bottom: 16, right: 0)
-        collectionView.backgroundColor = UIColor(white: 0.97, alpha: 1)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        return collectionView
-    }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,29 +44,44 @@ class HomeController: UIViewController, CustomTabBarControllerDelegate {
         titleLable.font = UIFont.boldSystemFont(ofSize: 24)
         navigationItem.titleView = titleLable
         
-        view.addSubview(collectionView)
-        collectionView.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
-        collectionView.pinEdgesToSuperView()
+
+        collectionView?.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
+        collectionView?.register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView?.showsVerticalScrollIndicator = false
+        collectionView?.contentInset = UIEdgeInsets(top: 66, left: 0, bottom: 16, right: 0)
+        collectionView?.backgroundColor = UIColor(white: 0.97, alpha: 1)
+//        collectionView?.dataSource = self
+//        collectionView?.delegate = self
         
-        view.addSubview(menuBar)
+        setupMenuBar()
         
-        setupData()
-//        UIApplication.shared.keyWindow!.addSubview(addButton)
-//        UIApplication.shared.keyWindow!.bringSubviewToFront(addButton)
+        loadData()
+//        clearData()
     }
     
-}
 
-extension HomeController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    private func setupMenuBar(){
+        
+        view.addSubview(menuBar)
+        menuBar.translatesAutoresizingMaskIntoConstraints = false
+        menuBar.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
+        menuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        menuBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
             as! ItemCollectionViewCell
         
         if let message = events?[indexPath.item] {
             cell.message = message
         }
-        
+    
         cell.delegate = self
         cell.layoutSubviews()
         
@@ -93,11 +94,12 @@ extension HomeController: UICollectionViewDataSource, UICollectionViewDelegateFl
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let count = events?.count{
             return count
         }
         return 0
+    
     }
     
     func addButtonAction() {
@@ -107,21 +109,42 @@ extension HomeController: UICollectionViewDataSource, UICollectionViewDelegateFl
         
         let action = UIAlertAction(title: "Add", style: .default) { (_) in guard let event = alert.textFields?.first?.text else{return}
             print(event)
-//            self.events?.insert(Message, at:0)
-//            self.setupData()
-            self.collectionView.reloadData()
             
-        }
-        alert.addAction(action)
-        present(alert, animated: true)
-//        ItemCollectionViewCell.nameLabel
-    
+            let delegate = UIApplication.shared.delegate as? AppDelegate
+            
+            if let context = delegate?.persistentContainer.viewContext {
+                
+                let mark = NSEntityDescription.insertNewObject(forEntityName: "Events", into: context) as! Events
+                mark.name = event
+                mark.profileImageName = "pharmacy"
+                mark.backgroundImageName = "bg-2"
+                
+                let message = NSEntityDescription.insertNewObject(forEntityName: "EventsProductList", into: context) as! EventsProductList
+                message.friend = mark
+                message.text = "First supermarket"
+                message.date = NSDate() as Date
+                
+                do{
+                    try(context.save())
+                    
+                    self.events?.append(message)
+                    
+                    self.collectionView.reloadData()
+                    
+                    self.loadData()
+
+                    
+                }catch let err{
+                    print(err)
+                }
+             }
+         }
+            alert.addAction(action)
+            present(alert, animated: true)
     }
     
     func customTabBarControllerDelegate_CenterButtonTapped(tabBarController: TabBarController, button: UIButton, buttonState: Bool) {
         
-        //        tabBarController.tabBar.isHidden = true
-        //        tabBarController.centerButton.isHidden = true
         self.tabBarController?.selectedIndex = 0
         
         addButtonAction()
@@ -133,13 +156,14 @@ extension HomeController: UICollectionViewDataSource, UICollectionViewDelegateFl
         return size
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 16
     }
+    
 
 }
 
@@ -150,21 +174,52 @@ extension HomeController: SwipeableCollectionViewCellDelegate {
         collectionView.performBatchUpdates({
             self.collectionView.deleteItems(at: [indexPath])
         })
-        
     }
+    
     
     func visibleContainerViewTapped(inCell cell: UICollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
+        let layout = UICollectionViewFlowLayout()
+        let controller = ProductListController(collectionViewLayout: layout)
+        controller.friend = events?[indexPath.item].friend
+        navigationController?.pushViewController(controller, animated: true)
         print("Tapped item at index path: \(indexPath)")
     }
     
+    
     func secondContainerViewTapped(inCell cell: UICollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        events?.remove(at: indexPath.item)
         collectionView.performBatchUpdates({
             self.collectionView.deleteItems(at: [indexPath])
+
+            let delegate = UIApplication.shared.delegate as? AppDelegate
+
+            if let context = delegate?.persistentContainer.viewContext {
+
+                do{
+                    
+                    let fetchRequestFriends: NSFetchRequest<Events> = Events.fetchRequest()
+
+                    let fetchFriend = try context.fetch(fetchRequestFriends)
+                    
+                    let fr = events?[indexPath.item].friend
+                    
+                    for friend in fetchFriend{
+                    context.delete(fr!)
+                    }
+                    
+                    events?.remove(at: indexPath.item)
+                    try(context.save())
+//                    self.collectionView.reloadData()
+
+                }catch let err{
+                    print(err)
+                }
+            }
         })
     }
+    
+
 }
 
 

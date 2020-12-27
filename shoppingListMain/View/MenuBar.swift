@@ -22,7 +22,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         return(cv)
     }()
 
-    let cellId = "cellId"
+    let cellIdd = "cellIdd"
     
     let menuLableTabs = ["ALL", "PERSONAL", "SHARED", "ARCHIVE"]
 
@@ -30,7 +30,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        collectionView.register(MenuCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(MenuCell.self, forCellWithReuseIdentifier: cellIdd)
         
         addSubview(collectionView)
         collectionView.pinEdgesToSuperView()
@@ -57,12 +57,10 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MenuCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdd, for: indexPath) as! MenuCell
         
         cell.menuLable.text = menuLableTabs[indexPath.item]
-        
-        
-        
+
         return cell
     }
     
@@ -74,10 +72,13 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
         return 0
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print([indexPath.item])
+    }
+    
     func menuBarConstrains(){
         guard let superView = superview else { return }
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.heightAnchor.constraint(equalToConstant: superView.frame.height).isActive = true
         self.widthAnchor.constraint(equalToConstant: superView.frame.width).isActive = true
         self.topAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         self.bottomAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true

@@ -20,6 +20,7 @@
 		BA33B91424C06F94009D681C /* shoppingListMain.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BA33B91224C06F94009D681C /* shoppingListMain.xcdatamodeld */; };
 		BA33B91624C06F95009D681C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA33B91524C06F95009D681C /* Assets.xcassets */; };
 		BA340827258761DE005966FC /* HomeControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA340826258761DE005966FC /* HomeControllerHelper.swift */; };
+		BA34082925891229005966FC /* ProductListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA34082825891229005966FC /* ProductListController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		BA33B91524C06F95009D681C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA33B91A24C06F95009D681C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA340826258761DE005966FC /* HomeControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeControllerHelper.swift; sourceTree = "<group>"; };
+		BA34082825891229005966FC /* ProductListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,8 +71,9 @@
 				BA0923B624E1831D0007D839 /* TabBarController.swift */,
 				BA0923C024F388FC0007D839 /* TabBarView.swift */,
 				BA33B90D24C06F94009D681C /* HomeController.swift */,
-				BA0923B824E52BFB0007D839 /* ProfileController.swift */,
 				BA340826258761DE005966FC /* HomeControllerHelper.swift */,
+				BA34082825891229005966FC /* ProductListController.swift */,
+				BA0923B824E52BFB0007D839 /* ProfileController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				BA33B91424C06F94009D681C /* shoppingListMain.xcdatamodeld in Sources */,
 				BA0923C124F388FC0007D839 /* TabBarView.swift in Sources */,
 				BA09238424D5908A0007D839 /* AddButton.swift in Sources */,
+				BA34082925891229005966FC /* ProductListController.swift in Sources */,
 				BA33B90E24C06F94009D681C /* HomeController.swift in Sources */,
 				BA0923B724E1831D0007D839 /* TabBarController.swift in Sources */,
 				BA0923AF24DAF2010007D839 /* ItemCollectionViewCell.swift in Sources */,
