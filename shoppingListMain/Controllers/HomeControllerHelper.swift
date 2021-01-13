@@ -54,12 +54,12 @@ extension HomeController {
             
             
             let mark = NSEntityDescription.insertNewObject(forEntityName: "Events", into: context) as! Events
-            mark.name = text
+            mark.category = text
             mark.profileImageName = "pharmacy"
             mark.backgroundImageName = "bg-2"
 
             let message = NSEntityDescription.insertNewObject(forEntityName: "EventsProductList", into: context) as! EventsProductList
-            message.friend = mark
+            message.event = mark
             message.text = "First supermarket"
             message.date = NSDate() as Date
 //
@@ -88,7 +88,7 @@ extension HomeController {
     private func createMassageWithText(text: String, friend: Events, context: NSManagedObjectContext){
         
         let message = NSEntityDescription.insertNewObject(forEntityName: "EventsProductList", into: context) as! EventsProductList
-        message.friend = friend
+        message.event = friend
         message.text = text
         message.date = NSDate() as Date
         
@@ -109,7 +109,7 @@ extension HomeController {
                 
                 let fetchReqest = NSFetchRequest<NSFetchRequestResult>(entityName: "EventsProductList")
                 fetchReqest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-                fetchReqest.predicate = NSPredicate(format: "friend.name = %@", friend.name!)
+                fetchReqest.predicate = NSPredicate(format: "event.name = %@", friend.name!)
                 fetchReqest.fetchLimit = 1
                 
                 

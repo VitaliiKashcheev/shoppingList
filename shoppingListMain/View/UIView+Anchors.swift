@@ -37,4 +37,13 @@ extension UIView {
         centerYAnchor.constraint(equalTo: superView.centerYAnchor).isActive = true
     }
     
+    func barConstrains(){
+        guard let superView = superview else { return }
+        translatesAutoresizingMaskIntoConstraints = false
+        widthAnchor.constraint(equalToConstant: superView.frame.width).isActive = true
+        topAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        bottomAnchor.constraint(equalTo: superView.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        
+    }
+    
 }

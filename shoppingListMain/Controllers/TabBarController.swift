@@ -22,8 +22,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     var customTabBarControllerDelegate:CustomTabBarControllerDelegate?;
     
-    var centerButton:AddButton = {
-        let cb = AddButton()
+    var centerButton:UIButton = {
+        let cb = UIButton()
+        cb.backgroundColor = UIColor(patternImage: UIImage(named: "createList")!)
         return cb
     }()
     
@@ -57,8 +58,23 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         viewControllers = [resentMassageNavController,secondController]
         
-        self.setupMiddleButton()
-
+        tabBar.addSubview(centerButton)
+//        tabBar.bringSubviewToFront(centerButton)
+        centerButton.addTarget(self, action: #selector(centerButtonAction(sender:)), for: .touchUpInside)
+        centerButton.translatesAutoresizingMaskIntoConstraints = false
+        centerButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        centerButton.centerXAnchor.constraint(equalTo: tabBar.centerXAnchor).isActive = true
+//        centerButton.centerYAnchor.constraint(equalTo: tabBar.centerYAnchor).isActive = true
+        centerButton.topAnchor.constraint(equalTo: tabBar.bottomAnchor, constant: -80).isActive = true
+        centerButton.bottomAnchor.constraint(equalTo: tabBar.bottomAnchor, constant: -20).isActive = true
+        centerButton.layer.cornerRadius = 30
+        centerButton.layer.shadowOffset = CGSize(width:0, height:5)
+        centerButton.layer.shadowRadius = 5
+        centerButton.layer.shadowColor = UIColor.red.cgColor
+        centerButton.layer.shadowOpacity = 0.3
+        
+//        setupMiddleButton()
+        
     }
     
 //    override func viewWillLayoutSubviews() {
@@ -74,11 +90,20 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
     }
     
-    private func setupMiddleButton()
-    {
-        view.addSubview(centerButton)
+    func setupMiddleButton() {
+        tabBar.addSubview(centerButton)
+        tabBar.bringSubviewToFront(centerButton)
         centerButton.addTarget(self, action: #selector(centerButtonAction(sender:)), for: .touchUpInside)
-        view.layoutIfNeeded()
+        centerButton.translatesAutoresizingMaskIntoConstraints = false
+        centerButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        centerButton.centerXAnchor.constraint(equalTo: tabBar.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        centerButton.topAnchor.constraint(equalTo: tabBar.safeAreaLayoutGuide.bottomAnchor, constant: -80).isActive = true
+        centerButton.bottomAnchor.constraint(equalTo: tabBar.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        centerButton.layer.cornerRadius = 30
+        centerButton.layer.shadowOffset = CGSize(width:0, height:5)
+        centerButton.layer.shadowRadius = 5
+        centerButton.layer.shadowColor = UIColor.red.cgColor
+        centerButton.layer.shadowOpacity = 0.3
     }
     
     private func bringcenterButtonToFront()

@@ -12,6 +12,11 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     let screenBounds = UIScreen.main.bounds
     
+    var remoteStorage = RemoteStorage()
+    
+    var arrayItem:Array<Item> = []
+
+    
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -73,7 +78,16 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print([indexPath.item])
+        
+//        let keyWord = indexPath.item
+//        let secondController = HomeController()
+//        secondController.array = remoteStorage.getItems(keyWord: keyWord)
+//        secondController.array
+
+//        secondController.array.remove(at: indexPath.item)
+
+        
+//        print(keyWord)
     }
     
     func menuBarConstrains(){

@@ -14,17 +14,20 @@ class ItemCollectionViewCell: SwipeableCollectionViewCell {
     
     var message: EventsProductList? {
         didSet{
-            categoryLable.text = message?.friend?.name
             
-            if let profileImageName = message?.friend?.profileImageName{
+            nameLabel.text = message?.event?.name
+            
+            categoryLable.text = message?.event?.category
+            
+            if let profileImageName = message?.event?.profileImageName{
             categoryImage.image = UIImage(named: profileImageName)
             }
             
-            if let backgroundImageName = message?.friend?.backgroundImageName{
+            if let backgroundImageName = message?.event?.backgroundImageName{
                 categoryBackgroundImage.image = UIImage(named: backgroundImageName)
             }
             
-            nameLabel.text = message?.text
+//            nameLabel.text = message?.text
             
             if let date = message?.date{
                 let formatter = DateFormatter()

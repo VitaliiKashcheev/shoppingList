@@ -27,7 +27,7 @@ class AddButton: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        buttonConstraints()
+//        buttonConstraints()
     }
     
     func buttonConstraints(){
