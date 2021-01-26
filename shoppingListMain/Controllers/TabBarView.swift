@@ -28,9 +28,6 @@ class TabBarView: UIView {
         shapeLayer.shadowRadius = 5
         shapeLayer.shadowOpacity = 0.1
         shapeLayer.shadowOffset = CGSize(width: 0, height: 0)
-//        shapeLayer.shadowRadius = 10
-//        shapeLayer.shadowColor = UIColor.red.cgColor
-//        shapeLayer.shadowOpacity = 0.3
         
         if let oldShapeLayer = self.shapeLayer {
             self.layer.replaceSublayer(oldShapeLayer, with: shapeLayer)
@@ -42,9 +39,9 @@ class TabBarView: UIView {
     
     
     func createPath() -> CGPath {
-        let height: CGFloat = 75.0
+//        let height: CGFloat = 75.0
+//        let centerWidth = self.frame.width / 2
         let path = UIBezierPath()
-        let centerWidth = self.frame.width / 2
         path.move(to: CGPoint(x: 0, y: -25))
         
         path.addCurve(to: CGPoint(x: 25, y: 0),
@@ -61,7 +58,6 @@ class TabBarView: UIView {
         return path.cgPath
     }
     
-
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard !clipsToBounds && !isHidden && alpha > 0 else { return nil }

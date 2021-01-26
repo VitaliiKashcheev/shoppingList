@@ -3,6 +3,8 @@
     <entity name="Events" representedClassName="Events" syncable="YES" codeGenerationType="class">
         <attribute name="backgroundImageName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="guid" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="price" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profileImageName" optional="YES" attributeType="String" syncable="YES"/>
@@ -15,7 +17,7 @@
         <relationship name="event" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Events" inverseName="messages" inverseEntity="Events" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Events" positionX="160" positionY="192" width="128" height="135"/>
+        <element name="Events" positionX="160" positionY="192" width="128" height="165"/>
         <element name="EventsProductList" positionX="0" positionY="0" width="128" height="105"/>
     </elements>
 </model>

@@ -19,12 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        
-        application.statusBarStyle = .lightContent
-
-//        window?.rootViewController = UINavigationController(rootViewController: HomeController())
         window?.rootViewController = TabBarController()
-        
+
+//        application.statusBarStyle = .lightContent
+//        window?.rootViewController = UINavigationController(rootViewController: HomeController())
         return true
     }
 

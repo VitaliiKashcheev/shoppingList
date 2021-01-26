@@ -59,12 +59,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         viewControllers = [resentMassageNavController,secondController]
         
         tabBar.addSubview(centerButton)
-//        tabBar.bringSubviewToFront(centerButton)
         centerButton.addTarget(self, action: #selector(centerButtonAction(sender:)), for: .touchUpInside)
         centerButton.translatesAutoresizingMaskIntoConstraints = false
         centerButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
         centerButton.centerXAnchor.constraint(equalTo: tabBar.centerXAnchor).isActive = true
-//        centerButton.centerYAnchor.constraint(equalTo: tabBar.centerYAnchor).isActive = true
         centerButton.topAnchor.constraint(equalTo: tabBar.bottomAnchor, constant: -80).isActive = true
         centerButton.bottomAnchor.constraint(equalTo: tabBar.bottomAnchor, constant: -20).isActive = true
         centerButton.layer.cornerRadius = 30
@@ -72,9 +70,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         centerButton.layer.shadowRadius = 5
         centerButton.layer.shadowColor = UIColor.red.cgColor
         centerButton.layer.shadowOpacity = 0.3
-        
-//        setupMiddleButton()
-        
     }
     
 //    override func viewWillLayoutSubviews() {
@@ -84,6 +79,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
 //        tabFrame.origin.y = self.view.frame.size.height - 56
 //        self.tabBar.frame = tabFrame
 //    }
+    
     @objc private func centerButtonAction(sender: UIButton){
     
       customTabBarControllerDelegate?.customTabBarControllerDelegate_CenterButtonTapped(tabBarController: self,button: centerButton,buttonState: centerButtonTappedOnce);
@@ -106,14 +102,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         centerButton.layer.shadowOpacity = 0.3
     }
     
-    private func bringcenterButtonToFront()
-    {
+    private func bringcenterButtonToFront() {
+        
         print("bringcenterButtonToFront called...")
         self.view.bringSubviewToFront(self.centerButton);
     }
-    
-    
-
 
 }
 

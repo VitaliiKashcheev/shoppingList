@@ -12,22 +12,20 @@ import CoreData
 class ItemCollectionViewCell: SwipeableCollectionViewCell {
    
     
-    var message: EventsProductList? {
+    var message: Events? {
         didSet{
             
-            nameLabel.text = message?.event?.name
+            nameLabel.text = message?.name
             
-            categoryLable.text = message?.event?.category
+            categoryLable.text = message?.category
             
-            if let profileImageName = message?.event?.profileImageName{
+            if let profileImageName = message?.profileImageName{
             categoryImage.image = UIImage(named: profileImageName)
             }
             
-            if let backgroundImageName = message?.event?.backgroundImageName{
+            if let backgroundImageName = message?.backgroundImageName{
                 categoryBackgroundImage.image = UIImage(named: backgroundImageName)
             }
-            
-//            nameLabel.text = message?.text
             
             if let date = message?.date{
                 let formatter = DateFormatter()

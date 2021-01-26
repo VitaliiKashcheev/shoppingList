@@ -22,15 +22,15 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     fileprivate let cellId = "id"
 
-    var events: [EventsProductList]?
+    var events: [Events]?
+    
+    var eventsList:[EventsProductList]?
     
     var remoteStorage = RemoteStorage()
     
     var array:Array<Item> = []
-    
-    var stringName:String?
 
-//Add menu Bar
+    //Add menu Bar
     
     let menuBar: MenuBar = {
         let mb = MenuBar()
@@ -43,6 +43,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         (self.tabBarController as! TabBarController).customTabBarControllerDelegate = self;
 
         // Navigation Bar
+        
         let nav = self.navigationController?.navigationBar
         nav?.isTranslucent = false
         nav?.barTintColor = UIColor(red: 0.20, green: 0.20, blue: 0.20, alpha: 1)
@@ -53,9 +54,9 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         self.navigationItem.rightBarButtonItem  = UIBarButtonItem(image: UIImage(named: "onDarkSearchLight"), style: .plain, target: self, action: nil)
         self.navigationItem.rightBarButtonItem?.tintColor = .white
 
-//        nav?.prefersLargeTitles = true
         
         // Title lable
+        
         let titleLable = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 44, height: view.frame.height))
         titleLable.text = "List"
         titleLable.textColor = UIColor.white
@@ -63,17 +64,17 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         titleLable.font = UIFont.boldSystemFont(ofSize: 24)
         navigationItem.titleView = titleLable
         
+        //CollectionView
 
         collectionView?.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
         collectionView?.register(ItemCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         collectionView?.showsVerticalScrollIndicator = false
         collectionView?.contentInset = UIEdgeInsets(top: 66, left: 0, bottom: 16, right: 0)
         collectionView?.backgroundColor = UIColor(white: 0.97, alpha: 1)
-//        collectionView?.dataSource = self
-//        collectionView?.delegate = self
         
         setupMenuBar()
         loadData()
+//        clearData()
     }
     
 
@@ -136,7 +137,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
             return count
         }
         return 0
-    
     }
     
     func addButtonAction(){
@@ -148,13 +148,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         print("On Click")
     }
     
-    
     func customTabBarControllerDelegate_CenterButtonTapped(tabBarController: TabBarController, button: UIButton, buttonState: Bool) {
         
         self.tabBarController?.selectedIndex = 0
         
         addButtonAction()
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -171,6 +169,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 16
     }
+    
+    func randomString() -> String {
+        let identifier = UUID().uuidString
+        return identifier
+    }
 
 }
 
@@ -182,25 +185,23 @@ extension HomeController: addEvents_Delegate{
             
             if let context = delegate?.persistentContainer.viewContext {
                 let code = self.remoteStorage.getItemCode(code: nameString.itemCode)
-//                print(code?.name as Any)
 
                 let eventList = NSEntityDescription.insertNewObject(forEntityName: "Events", into: context) as! Events
+                eventList.guid = self.randomString()
                 eventList.name = nameString.texfieldString
                 eventList.category = code?.name
                 eventList.profileImageName = code?.image
                 eventList.backgroundImageName = code?.backgroundImage
-
-                let message = NSEntityDescription.insertNewObject(forEntityName: "EventsProductList", into: context) as! EventsProductList
-                message.event = eventList
-//                message.text =
-                message.date = NSDate() as Date
+                eventList.date = NSDate() as Date
 
                 do{
                     try(context.save())
 
-                    self.events?.append(message)
+                    self.events?.append(eventList)
 
                     self.collectionView.reloadData()
+                    
+                    print(eventList.guid as Any)
 
                     self.loadData()
 
@@ -224,10 +225,10 @@ extension HomeController: SwipeableCollectionViewCellDelegate {
     
     func visibleContainerViewTapped(inCell cell: UICollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        let layout = UICollectionViewFlowLayout()
-        let controller = ProductListController(collectionViewLayout: layout)
-        controller.friend = events?[indexPath.item].event
-        navigationController?.pushViewController(controller, animated: true)
+
+        let controller = ProductListController()
+        controller.friend = events?[indexPath.item]
+        self.present(UINavigationController(rootViewController: controller), animated: true, completion: nil)
         print("Tapped item at index path: \(indexPath)")
     }
     
@@ -247,10 +248,20 @@ extension HomeController: SwipeableCollectionViewCellDelegate {
 
                     let fetchFriend = try context.fetch(fetchRequestFriends)
                     
-                    let fr = events?[indexPath.item].event
+                    let fetchRequestMessage = NSFetchRequest<NSFetchRequestResult>(entityName: "EventsProductList")
+                    
+                    fetchRequestMessage.predicate = NSPredicate(format: "event.name = %@", (events?[indexPath.item].name)!)
+                    
+                    let fetchMessage = try context.fetch(fetchRequestMessage)
+                    
+                    let fr = events?[indexPath.item]
                     
                     for _ in fetchFriend{
                     context.delete(fr!)
+                    }
+                    
+                    for message in fetchMessage{
+                        context.delete(message as! NSManagedObject)
                     }
                     
                     events?.remove(at: indexPath.item)

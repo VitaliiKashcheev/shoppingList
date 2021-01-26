@@ -23,6 +23,7 @@
 		BA34082925891229005966FC /* ProductListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA34082825891229005966FC /* ProductListController.swift */; };
 		BA3408792598BA10005966FC /* CategoryArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3408782598BA10005966FC /* CategoryArray.swift */; };
 		BA34087B259A01CB005966FC /* AddEventsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA34087A259A01CB005966FC /* AddEventsController.swift */; };
+		BA34087D25B638B3005966FC /* ProductListControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA34087C25B638B2005966FC /* ProductListControllerHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		BA34082825891229005966FC /* ProductListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListController.swift; sourceTree = "<group>"; };
 		BA3408782598BA10005966FC /* CategoryArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryArray.swift; sourceTree = "<group>"; };
 		BA34087A259A01CB005966FC /* AddEventsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddEventsController.swift; path = ../View/AddEventsController.swift; sourceTree = "<group>"; };
+		BA34087C25B638B2005966FC /* ProductListControllerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListControllerHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				BA340826258761DE005966FC /* HomeControllerHelper.swift */,
 				BA34087A259A01CB005966FC /* AddEventsController.swift */,
 				BA34082825891229005966FC /* ProductListController.swift */,
+				BA34087C25B638B2005966FC /* ProductListControllerHelper.swift */,
 				BA0923B824E52BFB0007D839 /* ProfileController.swift */,
 			);
 			path = Controllers;
@@ -189,6 +192,7 @@
 				BA33B90E24C06F94009D681C /* HomeController.swift in Sources */,
 				BA0923B724E1831D0007D839 /* TabBarController.swift in Sources */,
 				BA0923AF24DAF2010007D839 /* ItemCollectionViewCell.swift in Sources */,
+				BA34087D25B638B3005966FC /* ProductListControllerHelper.swift in Sources */,
 				BA0923B924E52BFC0007D839 /* ProfileController.swift in Sources */,
 				BA0923B124DAF2CC0007D839 /* UIView+Anchors.swift in Sources */,
 				BA0923AD24DAF1BF0007D839 /* SwipeableCollectionViewCell.swift in Sources */,
