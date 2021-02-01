@@ -46,7 +46,7 @@ class ProductListController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
 //        tableView?.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
         self.tableView.reloadData()
-        view.addSubview(checkButton)
+//        view.addSubview(checkButton)
 
     }
     
