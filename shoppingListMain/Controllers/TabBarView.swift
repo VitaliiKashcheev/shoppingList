@@ -39,8 +39,7 @@ class TabBarView: UIView {
     
     
     func createPath() -> CGPath {
-//        let height: CGFloat = 75.0
-//        let centerWidth = self.frame.width / 2
+
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: -25))
         

@@ -75,7 +75,6 @@ class ProductListController: UITableViewController {
         }
         
         let action = UIAlertAction(title: "Add", style: .default) { (_) in guard let event = alert.textFields?.first?.text else{return}
-//            print(self.loadData())
         
 
                 let delegate = UIApplication.shared.delegate as? AppDelegate
@@ -89,18 +88,7 @@ class ProductListController: UITableViewController {
                     
                     self.messages?.insert(message, at: 0)
                     
-        //            messages?.append(message)
-        //
-        //            let item = messages!.count - 1
-        //
-        //            let index = NSIndexPath(item: item, section: 0)
-        //
-        //            tableView.insertRows(at: [index as IndexPath], with: .automatic)
-                    
                     self.tableView.reloadData()
-                    
-//                    self.loadData()
-
                     
                 }catch let err{
                     print(err)
@@ -156,11 +144,8 @@ class TableCell: UITableViewCell{
         addSubview(nameLabel)
         guard let superView = superview else { return }
         translatesAutoresizingMaskIntoConstraints = false
-//        nameLabel.topAnchor.constraint(equalTo: superView.topAnchor, constant: 0).isActive = true
-//        nameLabel.bottomAnchor.constraint(equalTo: superView.bottomAnchor, constant: 0).isActive = true
         nameLabel.leftAnchor.constraint(equalTo: superView.leftAnchor, constant: 16).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo:superView.centerYAnchor).isActive = true
-//        nameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
     }
     
 }

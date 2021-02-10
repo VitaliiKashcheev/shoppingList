@@ -72,14 +72,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         centerButton.layer.shadowOpacity = 0.3
     }
     
-//    override func viewWillLayoutSubviews() {
-//        var tabFrame = self.tabBar.frame
-//        // - 40 is editable , the default value is 49 px, below lowers the tabbar and above increases the tab bar size
-//        tabFrame.size.height = 56
-//        tabFrame.origin.y = self.view.frame.size.height - 56
-//        self.tabBar.frame = tabFrame
-//    }
-    
+
     @objc private func centerButtonAction(sender: UIButton){
     
       customTabBarControllerDelegate?.customTabBarControllerDelegate_CenterButtonTapped(tabBarController: self,button: centerButton,buttonState: centerButtonTappedOnce);

@@ -43,16 +43,6 @@ extension HomeController {
         }
         
     }
-   
-    static func createMassageWithText(text: String, friend: Events, context: NSManagedObjectContext) -> EventsProductList{
-        
-        let message = NSEntityDescription.insertNewObject(forEntityName: "EventsProductList", into: context) as! EventsProductList
-        message.event = friend
-        message.text = text
-        message.date = NSDate() as Date
-        return message
-    }
-    
     
     func loadData(){
         
@@ -104,4 +94,13 @@ extension HomeController {
         }
          return nil
     }
+    
+    static func createMassageWithText(text: String, friend: Events, context: NSManagedObjectContext) -> EventsProductList{
+        
+        let message = NSEntityDescription.insertNewObject(forEntityName: "EventsProductList", into: context) as! EventsProductList
+        message.event = friend
+        message.text = text
+        return message
+    }
+    
 }

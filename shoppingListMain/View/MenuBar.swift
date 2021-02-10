@@ -79,15 +79,7 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-//        let keyWord = indexPath.item
-//        let secondController = HomeController()
-//        secondController.array = remoteStorage.getItems(keyWord: keyWord)
-//        secondController.array
-
-//        secondController.array.remove(at: indexPath.item)
-
         
-//        print(keyWord)
     }
     
     func menuBarConstrains(){
@@ -113,7 +105,6 @@ class MenuCell: UICollectionViewCell {
 
     let menuLable: UILabel = {
         let im = UILabel()
-//        im.image = UIImage(named: "profile")
         im.text = ""
 //        im.tintColor = UIColor(red: 0.50, green: 0.50, blue: 0.50, alpha: 1)
         im.textColor = UIColor(red: 0.50, green: 0.50, blue: 0.50, alpha: 1)

@@ -25,7 +25,6 @@ class AddEventsController: UIViewController{
         tf.keyboardType = UIKeyboardType.default
         tf.clearButtonMode = UITextField.ViewMode.whileEditing
         tf.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
-//        tf.delegate = self as? UITextFieldDelegate
         return tf
     }()
     
@@ -56,7 +55,6 @@ class AddEventsController: UIViewController{
         menuBar.heightAnchor.constraint(equalToConstant: 160).isActive = true
         menuBar.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 30).isActive = true
         menuBar.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -30).isActive = true
-        //        menuBar.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         menuBar.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
 
     }
@@ -100,7 +98,6 @@ class AddEventsController: UIViewController{
         menuBar.heightAnchor.constraint(equalToConstant: 160).isActive = true
         menuBar.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 30).isActive = true
         menuBar.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -30).isActive = true
-//        menuBar.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         menuBar.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
     }
     
@@ -148,9 +145,6 @@ class AddEventsControllerView: UIView, UICollectionViewDataSource, UICollectionV
         
         setupBar()
 
-//        let selectIndexPath = NSIndexPath(item: 0, section: 0)
-//        collectionView.selectItem(at: selectIndexPath as IndexPath, animated: false, scrollPosition: .left )
-
         arrayItem = remoteStorage.getItems()
 
         
@@ -190,9 +184,7 @@ class AddEventsControllerView: UIView, UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let screenSize: CGRect = UIScreen.main.bounds
-//        let screenWidth = (screenSize.width/5)-4
-//        return CGSize(width: screenWidth, height: screenWidth);
+        
         let screenWidth = (frame.width / 5)
         return CGSize(width: screenWidth, height: screenWidth)
 
